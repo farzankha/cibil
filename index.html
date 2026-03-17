@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIBIL Score Predictor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Credit Score Predictor</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <p class="progress-text">Step <span id="currentStep">1</span> of 5</p>
+        </div>
+
+        <!-- Slide 1: Enquiry Behaviour -->
+        <div class="slide active" id="slide1">
+            <h2>Enquiry Behaviour</h2>
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="PL_enq_L12m">Personal Loan Enquiries (Last 12 months)</label>
+                    <input type="number" id="PL_enq_L12m" name="PL_enq_L12m" step="1" min="0" placeholder="e.g., 2">
+                    <span class="help-text">Number of PL enquiries in last year</span>
+                </div>
+                <div class="input-group">
+                    <label for="time_since_recent_enq">Time Since Recent Enquiry (months)</label>
+                    <input type="number" id="time_since_recent_enq" name="time_since_recent_enq" step="1" min="0" placeholder="e.g., 6">
+                    <span class="help-text">Months since last credit enquiry</span>
+                </div>
+                <div class="input-group">
+                    <label for="tot_enq">Total Enquiries</label>
+                    <input type="number" id="tot_enq" name="tot_enq" step="1" min="0" placeholder="e.g., 5">
+                    <span class="help-text">Total credit enquiries made</span>
+                </div>
+                <div class="input-group">
+                    <label for="CC_enq_L12m">Credit Card Enquiries (Last 12 months)</label>
+                    <input type="number" id="CC_enq_L12m" name="CC_enq_L12m" step="1" min="0" placeholder="e.g., 1">
+                    <span class="help-text">Number of CC enquiries in last year</span>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-next" onclick="nextSlide()">Next</button>
+            </div>
+        </div>
+
+        <!-- Slide 2: Loan Flags & Credit Strength -->
+        <div class="slide" id="slide2">
+            <h2>Loan Status & Credit Strength</h2>
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="HL_Flag">Home Loan Status</label>
+                    <select id="HL_Flag" name="HL_Flag">
+                        <option value="">Select</option>
+                        <option value="0">No Home Loan</option>
+                        <option value="1">Has Home Loan</option>
+                    </select>
+                    <span class="help-text">Do you have an active home loan?</span>
+                </div>
+                <div class="input-group">
+                    <label for="PL_Flag">Personal Loan Status</label>
+                    <select id="PL_Flag" name="PL_Flag">
+                        <option value="">Select</option>
+                        <option value="0">No Personal Loan</option>
+                        <option value="1">Has Personal Loan</option>
+                    </select>
+                    <span class="help-text">Do you have an active personal loan?</span>
+                </div>
+                <div class="input-group">
+                    <label for="CC_Flag">Credit Card Status</label>
+                    <select id="CC_Flag" name="CC_Flag">
+                        <option value="">Select</option>
+                        <option value="0">No Credit Card</option>
+                        <option value="1">Has Credit Card</option>
+                    </select>
+                    <span class="help-text">Do you have an active credit card?</span>
+                </div>
+                <div class="input-group">
+                    <label for="pct_of_active_TLs_ever">Active Trade Lines (%)</label>
+                    <input type="number" id="pct_of_active_TLs_ever" name="pct_of_active_TLs_ever" step="0.1" min="0" max="100" placeholder="e.g., 75">
+                    <span class="help-text">Percentage of active credit accounts</span>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-prev" onclick="prevSlide()">Previous</button>
+                <button class="btn btn-next" onclick="nextSlide()">Next</button>
+            </div>
+        </div>
+
+        <!-- Slide 3: Delinquency History (Part 1) -->
+        <div class="slide" id="slide3">
+            <h2>Delinquency History</h2>
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="time_since_recent_deliquency">Time Since Recent Delinquency (months)</label>
+                    <input type="number" id="time_since_recent_deliquency" name="time_since_recent_deliquency" step="1" min="0" placeholder="e.g., 12">
+                    <span class="help-text">Months since last payment delay</span>
+                </div>
+                <div class="input-group">
+                    <label for="recent_level_of_deliq">Recent Delinquency Level</label>
+                    <input type="number" id="recent_level_of_deliq" name="recent_level_of_deliq" step="1" min="0" placeholder="e.g., 0">
+                    <span class="help-text">Severity of recent delinquencies</span>
+                </div>
+                <div class="input-group">
+                    <label for="num_times_delinquent">Number of Times Delinquent</label>
+                    <input type="number" id="num_times_delinquent" name="num_times_delinquent" step="1" min="0" placeholder="e.g., 0">
+                    <span class="help-text">Total instances of payment delays</span>
+                </div>
+                <div class="input-group">
+                    <label for="max_delinquency_level">Maximum Delinquency Level</label>
+                    <input type="number" id="max_delinquency_level" name="max_delinquency_level" step="1" min="0" placeholder="e.g., 0">
+                    <span class="help-text">Worst delinquency level ever</span>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-prev" onclick="prevSlide()">Previous</button>
+                <button class="btn btn-next" onclick="nextSlide()">Next</button>
+            </div>
+        </div>
+
+        <!-- Slide 4: Delinquency & Personal Info -->
+        <div class="slide" id="slide4">
+            <h2>Additional Delinquency & Personal Info</h2>
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="num_deliq_12mts">Delinquencies in Last 12 Months</label>
+                    <input type="number" id="num_deliq_12mts" name="num_deliq_12mts" step="1" min="0" placeholder="e.g., 0">
+                    <span class="help-text">Payment delays in last year</span>
+                </div>
+                <div class="input-group">
+                    <label for="num_times_60p_dpd">Times 60+ Days Past Due</label>
+                    <input type="number" id="num_times_60p_dpd" name="num_times_60p_dpd" step="1" min="0" placeholder="e.g., 0">
+                    <span class="help-text">Payments delayed by 60+ days</span>
+                </div>
+                <div class="input-group">
+                    <label for="AGE">Age (years)</label>
+                    <input type="number" id="AGE" name="AGE" step="1" min="18" max="100" placeholder="e.g., 35">
+                    <span class="help-text">Your current age</span>
+                </div>
+                <div class="input-group">
+                    <label for="Time_With_Curr_Empr">Time With Current Employer (months)</label>
+                    <input type="number" id="Time_With_Curr_Empr" name="Time_With_Curr_Empr" step="1" min="0" placeholder="e.g., 24">
+                    <span class="help-text">Months with current employer</span>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-prev" onclick="prevSlide()">Previous</button>
+                <button class="btn btn-next" onclick="nextSlide()">Next</button>
+            </div>
+        </div>
+
+        <!-- Slide 5: Credit Utilization -->
+        <div class="slide" id="slide5">
+            <h2>Credit Utilization</h2>
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="max_unsec_exposure_inPct">Max Unsecured Exposure (%)</label>
+                    <input type="number" id="max_unsec_exposure_inPct" name="max_unsec_exposure_inPct" step="0.1" min="0" max="100" placeholder="e.g., 30">
+                    <span class="help-text">Maximum unsecured debt percentage</span>
+                </div>
+                <div class="input-group">
+                    <label for="pct_currentBal_all_TL">Current Balance of All Trade Lines (%)</label>
+                    <input type="number" id="pct_currentBal_all_TL" name="pct_currentBal_all_TL" step="0.1" min="0" max="100" placeholder="e.g., 50">
+                    <span class="help-text">Percentage of balance across all accounts</span>
+                </div>
+                <div class="input-group">
+                    <label for="PL_utilization">Personal Loan Utilization (%)</label>
+                    <input type="number" id="PL_utilization" name="PL_utilization" step="0.1" min="0" max="100" placeholder="e.g., 45">
+                    <span class="help-text">Personal loan usage percentage</span>
+                </div>
+                <div class="input-group">
+                    <label for="CC_utilization">Credit Card Utilization (%)</label>
+                    <input type="number" id="CC_utilization" name="CC_utilization" step="0.1" min="0" max="100" placeholder="e.g., 25">
+                    <span class="help-text">Credit card usage percentage</span>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-prev" onclick="prevSlide()">Previous</button>
+                <button class="btn btn-submit" onclick="submitForm()">Calculate Score</button>
+            </div>
+        </div>
+
+        <!-- Result Slide -->
+        <div class="slide" id="resultSlide">
+            <div class="result-container">
+                <h2>Your Credit Score</h2>
+                <div class="score-display" id="scoreDisplay">
+                    <div class="score-number" id="scoreNumber">---</div>
+                    <div class="score-label">CIBIL Score</div>
+                </div>
+                <div class="risk-category" id="riskCategory">
+                    <span class="risk-badge" id="riskBadge">---</span>
+                </div>
+                <div class="score-breakdown">
+                    <p class="score-info">Score Range: 300 - 900</p>
+                    <div class="score-scale">
+                        <div class="scale-item high-risk">
+                            <span class="scale-label">High Risk</span>
+                            <span class="scale-range">&lt; 580</span>
+                        </div>
+                        <div class="scale-item medium-risk">
+                            <span class="scale-label">Medium Risk</span>
+                            <span class="scale-range">580 - 670</span>
+                        </div>
+                        <div class="scale-item low-risk">
+                            <span class="scale-label">Low Risk</span>
+                            <span class="scale-range">670 - 740</span>
+                        </div>
+                        <div class="scale-item very-low-risk">
+                            <span class="scale-label">Very Low Risk</span>
+                            <span class="scale-range">&gt; 740</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-restart" onclick="restartForm()">Start Over</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+            <p>Calculating your credit score...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
